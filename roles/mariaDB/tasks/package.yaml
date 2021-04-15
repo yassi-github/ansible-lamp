@@ -1,0 +1,21 @@
+---
+- name: "add mariaDB repository key"
+  script: shellscript/apt-key-add.sh {{ mariaDB.repository_key_uri }} {{ mariaDB.key_name }}.gpg
+
+- name: "add repository source file"
+  template:
+    src: mariaDB.sources.j2
+    dest: "{{ repository_sources_path }}/mariaDB.sources"
+
+- name: "add repository preferences file"
+  template:
+    src: mariaDB.pref.j2
+    dest: "{{ repository_preferences_path }}/mariaDB.pref"
+
+- name: "update repository cache"
+  apt:
+    update_cache: yes
+
+- name: "install package"
+  apt:
+    name: "{{ mariaDB.package_name }}"

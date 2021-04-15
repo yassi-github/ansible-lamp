@@ -1,0 +1,15 @@
+# connection info vars
+# `ansible-vault encrypt_string`
+ansible_user: vagrant
+ansible_password: vagrant
+ansible_become_pass: vagrant
+
+timezone: "Asia/Tokyo"
+
+repository_keys_path: "/usr/share/keyrings"
+repository_sources_path: "/etc/apt/sources.list.d"
+repository_preferences_path: "/etc/apt/preferences.d/"
+cpu_architecture: "amd64"
+
+db:
+  password: password

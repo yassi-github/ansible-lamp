@@ -1,0 +1,7 @@
+---
+- name: "install depends to add-3rd party repository"
+  apt:
+    name:
+    - "curl"
+    - "ca-certificates"
+    - "gnupg"

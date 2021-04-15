@@ -1,0 +1,55 @@
+---
+- name: "install pip"
+  apt:
+    name: "python3-pip"
+
+- name: "install pexpect for expect module"
+  shell: "pip3 install pexpect PyMySQL"
+
+- name: Check initialize
+  shell: mysql --user root --password="" --execute="exit"
+  register: mysql_login_result
+  ignore_errors: yes
+
+- name: show
+  debug:
+    msg: "{{ mysql_login_result }}"
+
+- name: "mariaDB secure installation"
+  expect:
+    command: /usr/bin/mysql_secure_installation
+    responses:
+      "(.*)Enter current password for root(.*)" : ""
+      "(.*)Switch to unix_socket(.*)" : "n"
+      "(.*)Change the(.*)" : "n"
+      # "(.*)Set root password(.*)" : "y"
+      # "(.*)New password(.*)" : ""
+      # "(.*)Re-enter new(.*)" : ""
+      "(.*)Remove anonymous(.*)" : "y"
+      "(.*)Disallow root(.*)" : "y"
+      "(.*)Remove test(.*)" : "y"
+      "(.*)Reload privilege(.*)" : "y"
+  when: mysql_login_result.rc == 0
+
+- name: update expired root user password
+  command: mysql --user root --password="" --connect-expired-password --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ db.password }}';"
+  when: mysql_login_result.rc == 0
+
+
+# - name: Create database user with name 'bob' and password 'passw0rd' with all database privileges
+#   mysql_user:
+#     login_user: root
+#     login_password: "{{ db.password }}"
+#     name: bob
+#     password: "{{ db.password }}"
+#     priv: '*.*:ALL'
+#     host: '%'
+#     state: present
+
+# - name: Try to create database as root/nopassword first. If not allowed, pass the credentials
+#   mysql_db:
+#     login_user: bob
+#     login_password: "{{ db.password }}"
+#     name: "{{ db.database_name }}"
+#     state: present
+#   notify: "restart mariaDB"

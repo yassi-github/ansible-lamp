@@ -1,0 +1,24 @@
+{% if set_as_ntp_server == True %}
+pool {{ ntp_pool_0 }} iburst
+pool {{ ntp_pool_1 }} iburst
+pool {{ ntp_pool_2 }} iburst
+pool {{ ntp_pool_3 }} iburst
+
+allow {{ allow_listen_address }}
+{% else %}
+server {{ local_ntp_server }} iburst
+{% endif %}
+
+stratumweight 0
+
+keyfile /etc/chrony.keys
+
+driftfile /var/lib/chrony/drift
+
+logdir /var/log/chrony
+
+maxupdateskew 100.0
+
+rtcsync
+
+makestep 1 3

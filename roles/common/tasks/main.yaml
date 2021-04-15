@@ -1,0 +1,9 @@
+---
+- name: "set timezone"
+  include_tasks: "timezone.yaml"
+
+- name: "apt update & upgrade"
+  include_tasks: "apt.yaml"
+
+- name: "install dependencies to add 3rd party repositories"
+  include_tasks: "depends.yaml"

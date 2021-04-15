@@ -1,0 +1,7 @@
+---
+- name: "config chrony.conf"
+  template:
+    src: chrony.conf.j2
+    dest: /etc/chrony/chrony.conf
+    backup: yes
+  notify: "restart chrony"

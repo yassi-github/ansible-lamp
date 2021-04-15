@@ -1,0 +1,12 @@
+---
+mariaDB:
+  repository_key_extention_type: "asc"
+  repository_key_uri: "https://mariadb.org/mariadb_release_signing_key.asc"
+  key_name: "mariaDB_key"
+
+  repository_uri: "https://ftp.ubuntu-tw.org/mirror/mariadb/repo/10.5/ubuntu"
+
+  package_name: "mariadb-server"
+
+pin_priority: 100
+components: "main"

@@ -1,0 +1,6 @@
+---
+- name: "enable chrony"
+  systemd:
+    name: chrony.service
+    state: started
+    enabled: yes

@@ -1,0 +1,6 @@
+- name: "install php"
+  apt:
+    name:
+    - "php-fpm"
+    - "php-mysql"
+    - "php-gd"

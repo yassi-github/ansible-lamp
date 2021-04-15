@@ -1,0 +1,12 @@
+ntp_pool_0: ntp.nict.jp
+ntp_pool_1: ntp.jst.mfeed.ad.jp
+ntp_pool_2: pool.ntp.org
+ntp_pool_3: s2csntp.miz.nao.ac.jp
+
+# set as ntp client
+local_ntp_server: boulez0.eng.kagawa-u.ac.jp
+local_ntp_server_address: 133.92.145.xxx
+
+# set as ntp server
+set_as_ntp_server: yes
+allow_listen_address: 133.92
