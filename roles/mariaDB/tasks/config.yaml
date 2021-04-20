@@ -11,9 +11,9 @@
   register: mysql_login_result
   ignore_errors: yes
 
-- name: show
-  debug:
-    msg: "{{ mysql_login_result }}"
+# - name: show
+#   debug:
+#     msg: "{{ mysql_login_result }}"
 
 - name: "mariaDB secure installation"
   expect:
