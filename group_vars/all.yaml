@@ -13,3 +13,5 @@ cpu_architecture: "amd64"
 
 db:
   password: password
+
+install-phpmyadmin: no

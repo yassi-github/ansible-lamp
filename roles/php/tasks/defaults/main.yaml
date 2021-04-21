@@ -1,0 +1,12 @@
+phpmyadmin_mesasge: "
+To install phpmyadmin,\n
+run:\n
+\n
+$ apt install phpmyadmin\n
+\n
+and select:\n
+\n
+`apache`\n
+\n
+`No`\n
+"

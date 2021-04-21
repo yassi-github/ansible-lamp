@@ -4,3 +4,13 @@
     - "php-fpm"
     - "php-mysql"
     - "php-gd"
+
+- name: "install depend for phpmyadmin"
+  apt:
+    name: "libapache2-mod-php"
+  when: install-phpmyadmin == True
+
+- name: "message for phpmyadmin"
+  debug:
+    msg: "{{ phpmyadmin_mesasge.split('\n') }}"
+  when: install-phpmyadmin == True
