@@ -13,5 +13,8 @@ cpu_architecture: "amd64"
 
 db:
   password: password
+  database_name: wordpress
+  username: wp_user
+  localhost: localhost
 
-install-phpmyadmin: no
+install_phpmyadmin: no

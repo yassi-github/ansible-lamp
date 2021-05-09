@@ -1,0 +1,38 @@
+---
+- name: "mkdir {{ wordpress.installpath }}"
+  file:
+    path: "{{ wordpress.installpath }}"
+    state: "directory"
+
+- name: "Get stats of a /tmp/wordpress"
+  stat:
+    path: /tmp/wordpress
+    get_attributes: no
+  register: tmpwp
+
+- name: "dl & unpack wordpress"
+  unarchive:
+    src: "https://ja.wordpress.org/latest-ja.tar.gz"
+    dest: "/tmp"
+    remote_src: yes
+  when: tmpwp.stat.exists == False
+
+- name: "dl & unpack wordpress"
+  copy:
+    remote_src: yes
+    src: "/tmp/wordpress"
+    dest: "{{ wordpress.installpath }}"
+    owner: "root"
+    group: "www-data"
+
+- name: "chown wordpress dir"
+  file:
+    path: "{{ wordpress.installpath }}"
+    state: "directory"
+    recurse: yes
+    owner: "root"
+    group: "www-data"
+
+- name: "install libapache2-mod-php"
+  apt:
+    name: "libapache2-mod-php"

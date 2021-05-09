@@ -9,3 +9,4 @@
     - role: apache
     - role: mariaDB
     - role: php
+    - role: wordpress

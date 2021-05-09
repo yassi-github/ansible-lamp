@@ -1,0 +1,43 @@
+---
+- name: Create database user with name 'wp_user' and password 'passw0rd' with all database privileges
+  mysql_user:
+    login_user: root
+    login_password: "{{ db.password }}"
+    name: wp_user
+    password: "{{ db.password }}"
+    priv: '*.*:ALL'
+    host: '%'
+    state: present
+
+- name: Try to create database as wp_user/nopassword first. If not allowed, pass the credentials
+  mysql_db:
+    login_user: wp_user
+    login_password: "{{ db.password }}"
+    name: "{{ db.database_name }}"
+    state: present
+    encoding: utf8
+    collation: utf8_general_ci
+  notify: "restart mariaDB"
+
+
+- name: "check php verison"
+  shell: "php --version | head -n 1 | awk -F ' ' '{print $2}' | sed -r 's%^([0-9].[0-9]).*%\\1%'"
+  register: php_version_result
+
+- name: "create apache conf"
+  template:
+    src: wordpress.conf.j2
+    dest: "{{ wp_apache_dir }}/wordpress.conf"
+  notify: "restart apache"
+
+# - name: "link config file"
+#   file:
+#     state: link
+#     src: "{{ wp_apache_dir }}/wordpress.conf"
+#     dest: /etc/nginx/sites-enabled/wordpress.conf
+#   notify: "restart nginx"
+
+- name: "wp-config"
+  template:
+    src: "wp-config.php.j2"
+    dest: "{{ wordpress.installpath }}/wp-config.php"

@@ -1,0 +1,6 @@
+---
+htmlroot: "/var/www/html"
+wordpress:
+  installpath: "{{ htmlroot }}/wordpress"
+
+wp_apache_dir: "/etc/apache2/sites-available"
