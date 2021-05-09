@@ -10,7 +10,7 @@
     name: "libapache2-mod-php"
   when: install_phpmyadmin == True
 
-- name: "message for phpmyadmin"
-  debug:
-    msg: "{{ phpmyadmin_mesasge.split('\n') }}"
+- name: "regist message for phpmyadmin"
+  shell: "echo message registed!"
+  notify: "message for phpmyadmin"
   when: install_phpmyadmin == True

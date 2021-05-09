@@ -1,0 +1,4 @@
+---
+- name: "message for phpmyadmin"
+  debug:
+    msg: "{{ phpmyadmin_message.split('\n') }}"

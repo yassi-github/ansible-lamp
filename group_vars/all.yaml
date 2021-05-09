@@ -17,4 +17,4 @@ db:
   username: wp_user
   localhost: localhost
 
-install_phpmyadmin: no
+install_phpmyadmin: yes

@@ -1,0 +1,12 @@
+---
+phpmyadmin_message: |
+  To install phpmyadmin,
+  run:
+  
+  $ apt install phpmyadmin
+  
+  and select:
+  
+  `apache`
+  
+  `No`
