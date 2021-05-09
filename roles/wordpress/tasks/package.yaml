@@ -24,6 +24,7 @@
     dest: "{{ htmlroot }}"
     owner: "root"
     group: "www-data"
+    force: no
 
 - name: "chown wordpress dir"
   file:
