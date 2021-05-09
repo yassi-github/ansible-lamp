@@ -17,11 +17,11 @@
     remote_src: yes
   when: tmpwp.stat.exists == False
 
-- name: "dl & unpack wordpress"
+- name: "copy wordpress"
   copy:
     remote_src: yes
     src: "/tmp/wordpress"
-    dest: "{{ wordpress.installpath }}"
+    dest: "{{ htmlroot }}"
     owner: "root"
     group: "www-data"
 
