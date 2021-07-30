@@ -43,7 +43,7 @@
 #     name: bob
 #     password: "{{ db.password }}"
 #     priv: '*.*:ALL'
-#     host: '%'
+#     host: 'localhost'
 #     state: present
 
 # - name: Try to create database as root/nopassword first. If not allowed, pass the credentials

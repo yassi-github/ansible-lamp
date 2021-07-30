@@ -14,7 +14,9 @@ cpu_architecture: "amd64"
 db:
   password: password
   database_name: wordpress
-  username: wp_user
+  username: s19t312
   localhost: localhost
 
-install_phpmyadmin: yes
+install_phpmyadmin: no
+
+domain_name: "vagrant-akatsuki.myhome.localnet"

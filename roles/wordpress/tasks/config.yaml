@@ -1,22 +1,22 @@
 ---
-- name: Create database user with name 'wp_user' and password 'passw0rd' with all database privileges
+- name: Create database user with all database privileges
   mysql_user:
     login_user: root
     login_password: "{{ db.password }}"
-    name: wp_user
+    name: "{{ db.username }}"
     password: "{{ db.password }}"
     priv: '*.*:ALL'
-    host: '%'
+    host: 'localhost'
     state: present
 
-- name: Try to create database as wp_user/nopassword first. If not allowed, pass the credentials
+- name: Try to create database as {{ db.username }}/nopassword first. If not allowed, pass the credentials
   mysql_db:
-    login_user: wp_user
+    login_user: "{{ db.username }}"
     login_password: "{{ db.password }}"
     name: "{{ db.database_name }}"
     state: present
-    encoding: utf8
-    collation: utf8_general_ci
+    encoding: utf8mb4
+    collation: utf8mb4_general_ci
   notify: "restart mariaDB"
 
 
@@ -41,3 +41,10 @@
   template:
     src: "wp-config.php.j2"
     dest: "{{ wordpress.installpath }}/wp-config.php"
+  notify: "chmodown wordpress dir"
+
+- name: "chown wordpress www-data"
+  file:
+    path: "{{ wordpress.installpath }}"
+    owner: "www-data"
+    recurse: yes

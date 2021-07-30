@@ -3,3 +3,12 @@
   systemd:
     name: "apache2.service"
     state: restarted
+
+- name: "chmodown wordpress dir"
+  file:
+    path: "{{ wordpress.installpath }}"
+    state: "directory"
+    recurse: yes
+    owner: "root"
+    group: "www-data"
+    mode: "0754"

@@ -1,1 +1,7 @@
 ---
+apache_ssldir_path: "/usr/local/apache/ssl"
+apache_availavle_dir: "/etc/apache2/sites-available"
+apache_ssldir_path_list:
+  - "{{ apache_ssldir_path }}"
+  - "{{ apache_ssldir_path }}/key"
+  - "{{ apache_ssldir_path }}/crt"

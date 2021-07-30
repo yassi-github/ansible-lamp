@@ -1,10 +1,8 @@
 ---
 - hosts: server
-  become: yes
-  become_method: sudo
   roles:
     - role: common
-    - role: chrony
+    # - role: chrony
 
     - role: apache
     - role: mariaDB
