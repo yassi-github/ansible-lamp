@@ -1,0 +1,35 @@
+---
+- name: "create phpmyadmin user"
+  mysql_user:
+    login_user: root
+    login_password: "{{ db.password }}"
+    name: "phpmyadmin"
+    password: "{{ db.password }}"
+    priv: '*.*:ALL'
+    host: 'localhost'
+    state: present
+
+- name: "write dbuser to myadmin dbconf"
+  lineinfile:
+    path: "/etc/phpmyadmin/config-db.php"
+    state: present
+    regexp: '^\$dbuser=.*$'
+    line: "$dbuser='root';"
+
+- name: "write dbpass to myadmin dbconf"
+  lineinfile:
+    path: "/etc/phpmyadmin/config-db.php"
+    state: present
+    regexp: '^\$dbpass=.*$'
+    line: "$dbpass='{{ db.password }}';"
+
+- name: "link phpmyadmin conf"
+  file:
+    state: link
+    src: /etc/phpmyadmin/apache.conf
+    dest: /etc/apache2/conf-available/phpmyadmin.conf
+    mode: '0644'
+
+- name: "enable phpmyadmin conf"
+  shell: "a2enconf phpmyadmin"
+  notify: "restart apache2"

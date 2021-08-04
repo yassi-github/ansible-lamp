@@ -10,7 +10,23 @@
     name: "libapache2-mod-php"
   when: install_phpmyadmin == True
 
-- name: "regist message for phpmyadmin"
-  shell: "echo message registed!"
-  notify: "message for phpmyadmin"
+# - name: "regist message for phpmyadmin"
+#   shell: "echo message registed!"
+#   notify: "message for phpmyadmin"
+#   when: install_phpmyadmin == True
+
+- name: "install phpmyadmin"
+  debconf:
+    name: phpmyadmin
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype }}"
+  loop:
+    - { question: phpmyadmin/reconfigure-webserver, value: "apache2", vtype: select }
+    - { question: phpmyadmin/dbconfig-install, value: "false", vtype: boolean }
   when: install_phpmyadmin == True
+
+- name: "install pma"
+  apt:
+    name: "phpmyadmin"
+    state: present

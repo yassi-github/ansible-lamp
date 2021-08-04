@@ -2,3 +2,8 @@
 - name: "message for phpmyadmin"
   debug:
     msg: "{{ phpmyadmin_message.split('\n') }}"
+
+- name: "restart apache2"
+  systemd:
+    name: "apache2.service"
+    state: restarted

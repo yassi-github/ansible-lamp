@@ -1,8 +1,7 @@
 # connection info vars
 # `ansible-vault encrypt_string`
-ansible_user: vagrant
-ansible_password: vagrant
-ansible_become_pass: vagrant
+ansible_user: ubuntu
+ansible_become_password: password
 
 timezone: "Asia/Tokyo"
 
@@ -14,9 +13,11 @@ cpu_architecture: "amd64"
 db:
   password: password
   database_name: wordpress
-  username: s19t312
-  localhost: localhost
+  username: wpuser
+  host: localhost
 
-install_phpmyadmin: no
+install_phpmyadmin: yes
 
-domain_name: "vagrant-akatsuki.myhome.localnet"
+self_sign: no
+# domain_name: "vagrant-akatsuki.myhome.localnet"
+domain_name: "{{ ansible_default_ipv4.address }}"

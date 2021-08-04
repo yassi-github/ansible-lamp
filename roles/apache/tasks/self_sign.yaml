@@ -1,0 +1,26 @@
+---
+- name: "template default conf (ssl enable)"
+  template:
+    src: "000-default.conf.j2"
+    dest: "{{ apache_availavle_dir }}/000-default.conf"
+    backup: yes
+
+- name: "mkssldir"
+  file:
+    path: "{{ item }}"
+    state: "directory"
+  loop: "{{ apache_ssldir_path_list }}"
+
+- name: "create crt key"
+  shell: "cd {{ apache_ssldir_path }} && openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -subj /CN={{ domain_name }} -keyout key/server.key -out crt/server.crt"
+
+- name: "chmod key dir"
+  file:
+    path: "{{ apache_ssldir_path }}/key"
+    mode: "0700"
+
+- name: "enable apache sslmod"
+  shell: "a2enmod ssl"
+
+- name: "load apache ssl"
+  shell: "a2ensite default-ssl"
